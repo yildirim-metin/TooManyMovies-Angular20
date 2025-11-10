@@ -1,1 +1,7 @@
-<p>user-listing-page works!</p>
+<h2>User listing</h2>
+
+<app-listing-table
+  [columns]="['id', 'email', 'role']"
+  [elements]="users"
+  (clickDetails)="onClickDetails($event)"
+/>

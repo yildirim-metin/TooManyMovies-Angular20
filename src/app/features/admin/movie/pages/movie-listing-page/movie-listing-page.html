@@ -1,2 +1,6 @@
 <h2>Movie list:</h2>
-<app-listing-table [elements]="movies" (clickDetails)="onClickDetails($event)" />
+<app-listing-table
+  [columns]="['id', 'title', 'genres']"
+  [elements]="movies"
+  (clickDetails)="onClickDetails($event)"
+/>
