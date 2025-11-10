@@ -8,7 +8,9 @@ export class AuthService {
   private _isConnected: WritableSignal<boolean> = signal<boolean>(true);
   isConnected: Signal<boolean> = this._isConnected.asReadonly();
 
-  login() {
+  login(email: string, password: string) {
+    console.log('LOGIN AVEC ', email, password);
+
     this._isConnected.set(true);
     // TODO call API avec credential
     // récupération du JWT
