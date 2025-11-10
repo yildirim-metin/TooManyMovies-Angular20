@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { strongPasswordValidator } from '@core/validators';
 
@@ -12,6 +13,7 @@ import { strongPasswordValidator } from '@core/validators';
 export class RegisterPage {
   private readonly _fb = inject(FormBuilder);
   private readonly _authService = inject(AuthService);
+  private readonly _router = inject(Router);
 
   firstName = new FormControl('', [
     Validators.required,
@@ -41,6 +43,9 @@ export class RegisterPage {
         email: this.registerForm.value.email!,
         password: this.registerForm.value.password!,
       });
+
+      // redirigé
+      this._router.navigate(['/auth/login']);
     }
   }
 }
