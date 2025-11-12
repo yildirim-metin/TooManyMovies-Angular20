@@ -46,4 +46,7 @@
   <!-- Confirm password? -->
 
   <button type="submit" [disabled]="registerForm.invalid">S'enregistrer</button>
+  @if(registerError){
+    <p>{{registerError}}</p>
+  }
 </form>

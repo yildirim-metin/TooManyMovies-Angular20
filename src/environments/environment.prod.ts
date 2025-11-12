@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000/',
+  apiUrl: 'https://toomanymovies-api.com:3000/',
 };

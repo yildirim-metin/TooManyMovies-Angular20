@@ -35,17 +35,25 @@ export class RegisterPage {
     password: this.password,
   });
 
+  registerError = '';
+
   onSubmit() {
     if (this.registerForm.valid) {
-      this._authService.register({
-        firstName: this.registerForm.value.firstName!,
-        lastName: this.registerForm.value.lastName!,
-        email: this.registerForm.value.email!,
-        password: this.registerForm.value.password!,
-      });
-
-      // redirigé
-      this._router.navigate(['/auth/login']);
+      this._authService
+        .register({
+          firstName: this.registerForm.value.firstName!,
+          lastName: this.registerForm.value.lastName!,
+          email: this.registerForm.value.email!,
+          password: this.registerForm.value.password!,
+        })
+        .then(() => {
+          // redirigé
+          this._router.navigate(['/auth/login']);
+        })
+        .catch((err) => {
+          console.error(err);
+          this.registerError = err.message;
+        });
     }
   }
 }
