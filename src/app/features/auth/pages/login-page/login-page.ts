@@ -23,11 +23,17 @@ export class LoginPage {
     password: this.password,
   });
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this._authService.login(this.loginForm.value.email!, this.loginForm.value.password!);
+  loginError = '';
 
-      this._router.navigate(['/']);
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      try {
+        await this._authService.login(this.loginForm.value.email!, this.loginForm.value.password!);
+        this._router.navigate(['/']);
+      } catch (err) {
+        console.error(err);
+        this.loginError = (err as Error).message;
+      }
     }
   }
 }

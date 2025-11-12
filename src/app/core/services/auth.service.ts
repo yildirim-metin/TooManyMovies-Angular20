@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { UserRole } from '@core/enums';
+import { LoginResponse } from '@core/models/login-resonse.model';
+import { Token } from '@core/models/token.model';
 import { UserRegisterForm } from '@core/models/user-register-form.model';
 import { environment } from '@env';
+import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -17,13 +20,27 @@ export class AuthService {
   private _role = signal<UserRole | null>(null);
   role = this._role.asReadonly();
 
-  login(email: string, password: string) {
-    console.log('LOGIN AVEC ', email, password);
+  private _token = signal<string | null>(null);
+  token = this._token.asReadonly();
 
+  async login(email: string, password: string): Promise<void> {
+    /* PREMIERE VERSION - PROMESSE */
+    const promesse = firstValueFrom(
+      this._httpClient.post<LoginResponse>(environment.apiUrl + 'auth/login', {
+        email: email,
+        password,
+      }),
+    );
+
+    const response = await promesse;
+    this._token.set(response.token);
+    const tokenProp = jwtDecode<Token>(response.token);
+    this._role.set(tokenProp.role);
     this._isConnected.set(true);
-    this._role.set(UserRole.User);
-    // TODO call API avec credential
-    // récupération du JWT
+  }
+
+  loginObservable(email: string, password: string) {
+    /* DEUXIEME VERSION - OBSERVABLE */
   }
 
   register(form: UserRegisterForm): Promise<void> {
