@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MovieListingPage } from './features/movie/pages/movie-listing-page/movie-listing-page';
+import { adminGuard } from '@core/guards/admin-guard';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivateChild: [adminGuard],
     loadChildren: () => import('./features/admin/admin.routes').then((r) => r.routes),
   },
   {

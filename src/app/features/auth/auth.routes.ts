@@ -8,6 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [],
     loadComponent: () => import('./pages/login-page/login-page').then((c) => c.LoginPage),
   },
   {
