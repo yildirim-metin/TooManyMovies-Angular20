@@ -2,11 +2,12 @@
   <ul>
     <li><a routerLink="/">Home</a></li>
     <li><a routerLink="/movie">Movie</a></li>
-    @if(!isConnected()){
     <li><a routerLink="/auth/login">Login</a></li>
+    @if(!isConnected()){
     <li><a routerLink="/auth/register">Register</a></li>
     }@else {
     <li><button (click)="onClickLogout()">Logout</button></li>
+    @if(role() === UserRole.Admin) {
     <li>
       Admin
       <ul>
@@ -14,6 +15,6 @@
         <li><a routerLink="/admin/movie">movie</a></li>
       </ul>
     </li>
-    }
+    } }
   </ul>
 </nav>
