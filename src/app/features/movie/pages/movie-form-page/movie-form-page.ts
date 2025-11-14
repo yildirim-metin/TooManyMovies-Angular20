@@ -35,12 +35,12 @@ export class MovieFormPage {
     if (this.formGroup.invalid) return;
 
     const movieDetails: MovieDetails = {
-      id: 5,
+      id: 0,
       title: this.formGroup.value.title!,
       releaseDate: this.formGroup.value.releaseDate!,
       genres: this.formGroup.value.genres?.map((g) => g.genre as string) ?? [],
       realisator: {
-        id: 5,
+        id: 0,
         name: this.formGroup.value.realisator?.name!,
         birthDate: this.formGroup.value.realisator?.birthDate!,
       },

@@ -12,8 +12,10 @@ import { firstValueFrom, Observable } from 'rxjs';
 export class MovieService {
   private readonly _httpClient = inject(HttpClient);
 
-  getMovies(/* TODO pagination */): Observable<ApiResponseList<MovieListing>> {
-    return this._httpClient.get<ApiResponseList<MovieListing>>(environment.apiUrl + 'movie');
+  getMovies(page: number): Observable<ApiResponseList<MovieListing>> {
+    return this._httpClient.get<ApiResponseList<MovieListing>>(
+      environment.apiUrl + 'movie?page=' + page,
+    );
   }
 
   async add(movieDetails: MovieDetails): Promise<MovieDetails> {

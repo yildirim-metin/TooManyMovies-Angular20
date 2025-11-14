@@ -17,11 +17,28 @@ export class MovieListingPage implements OnInit, OnDestroy {
   total: number = 0;
   movies: MovieListing[] | null = null;
   moviesError: string | null = null;
+  currentIndex: number = 1;
 
   getMoviesSubscription: Subscription | null = null;
 
   ngOnInit(): void {
-    this.getMoviesSubscription = this._movieService.getMovies().subscribe({
+    this.getMovies(this.currentIndex);
+  }
+
+  ngOnDestroy(): void {
+    this.getMoviesSubscription?.unsubscribe();
+  }
+
+  onNext() {
+    this.getMovies(++this.currentIndex);
+  }
+
+  onPrevious() {
+    this.getMovies(--this.currentIndex);
+  }
+
+  getMovies(page: number) {
+    this._movieService.getMovies(page).subscribe({
       next: (data) => {
         // traitement
         this.total = data.count;
@@ -32,9 +49,5 @@ export class MovieListingPage implements OnInit, OnDestroy {
         this.moviesError = err.message;
       },
     });
-  }
-
-  ngOnDestroy(): void {
-    this.getMoviesSubscription?.unsubscribe();
   }
 }
